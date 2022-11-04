@@ -1,4 +1,4 @@
-package com.framework;
+package com.framework.unitests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
