@@ -13,11 +13,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static java.net.http.HttpClient.*;
+
 public class Java11GetHeaderTestRefactored {
 
     private static final String BASE_URL = "https://api.github.com/";
 
-    static HttpClient httpClient = HttpClient.newBuilder().build();
+    static HttpClient httpClient = newBuilder().build();
     static HttpResponse<Void> response;
 
 
@@ -36,7 +38,7 @@ public class Java11GetHeaderTestRefactored {
     void getReturns200() throws IOException, InterruptedException {
 
         // Arrange
-        HttpClient httpClient = HttpClient.newBuilder().build();
+        HttpClient httpClient = newBuilder().build();
 
         HttpRequest get = HttpRequest.newBuilder(URI.create(BASE_URL))
                 //.GET()
