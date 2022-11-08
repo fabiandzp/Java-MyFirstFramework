@@ -9,9 +9,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import static java.net.http.HttpClient.newBuilder;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Java11PostFails {
+public class Java11GetBodyTest {
 
     private static final String BASE_URL = "https://api.github.com/";
 
@@ -21,16 +21,17 @@ public class Java11PostFails {
         HttpClient httpClient = newBuilder().build();
 
         //Arrange - create request
-        HttpRequest post = HttpRequest.newBuilder(URI.create(BASE_URL + "user/repos"))
-                .POST(HttpRequest.BodyPublishers.noBody())
+        HttpRequest get = HttpRequest.newBuilder(URI.create(BASE_URL + "users/fabiandzp"))
+                .GET()
+                .setHeader("User-Agent", "Java 11 Http bot")
                 .build();
 
         // Act - sent request
-        HttpResponse<Void> response = httpClient.send(post, HttpResponse.BodyHandlers.discarding());
-        int actualCode = response.statusCode();
+        HttpResponse<String> response = httpClient.send(get, HttpResponse.BodyHandlers.ofString());
+        String body = response.body();
 
         // Assert
-        assertEquals(401, actualCode);
+        assertTrue(body.contains("\"login\":\"fabiandzp\""));
 
 
     }
